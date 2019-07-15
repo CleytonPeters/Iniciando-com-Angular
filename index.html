@@ -1,21 +1,60 @@
 <!DOCTYPE html>
 <html ng-app="meuModulo">
-    <head>
-        <meta charset="3210" />
-        <title>Trabalhando com Angular JS</title>
-    </head>
+<head>
+    <meta charset="3210" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Trabalhando com Angular JS</title>
+</head>
     <body ng-controller="indexController">
         <header>
-            <h2>{{titulo}}</h2>
-            <h2 ng-bind="titulo"></h2>
+            <div class="card-panel teal lighten-2">
+                <h2  ng-bind="titulo"></h2>
+            </div>
+           
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Nome:</th>
+                        <th>E-mail:</th>
+                        <th>Nota 1:</th>
+                        <th>Nota 2:</th>
+                        <th>Nota 3:</th>
+                        <th>Média: </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="aluno in alunos">
+                        <td>{{aluno.nome}}</td>
+                        <td>{{aluno.email}}</td>
+                        <td>{{aluno.nota1}}</td>
+                        <td>{{aluno.nota2}}</td>
+                        <td>{{aluno.nota3}}</td>
+                        <td>{{ media(aluno) }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </header>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="lib/angular/angular.min.js"></script>
         <script type="text/javascript">
             angular.module("meuModulo", [])
                 .controller("indexController", function ($scope) {
-                    $scope.titulo = "Sistema com Angular JS"; 
-                })  
+                    $scope.titulo = "Sistema com Angular JS";
+                    $scope.alunos = [
+                        { nome: "Camila", email: "camila@mail.com", nota1: 65, nota2: 80, nota3: 55 },
+                        { nome: "Pedro", email: "pedro@mail.com", nota1: 70, nota2: 60, nota3: 95 },
+                        { nome: "Murilo", email: "murilo@mail.com", nota1: 95, nota2: 100, nota3: 95 },
+                        { nome: "Joao", email: "joao@mail.com", nota1: 85, nota2: 95, nota3: 75 },
+                        { nome: "Marcelo", email: "marcelo@mail.com", nota1: 75, nota2: 80, nota3: 75 },
+                        { nome: "Ana", email: "ana@mail.com", nota1: 35, nota2: 90, nota3: 85 },
+                    ]
+                    $scope.media = function (Aluno) {
+                        var media = (Aluno.nota1 + Aluno.nota2 + Aluno.nota3) / 3;
+                        return media.toFixed(2);
+                    };
+                })
         </script>
     </body>
 </html>
